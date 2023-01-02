@@ -4,21 +4,7 @@ import { Alert, Modal, StyleSheet, Text, Pressable, View, Image, TextInput, Butt
 import LoginPage from './src/Pages/LoginPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Task from './src/Components/Task';
-const messages = [
-  {
-    task: 'one'
-  },
-  {
-    task: 'two'
-  },
-  {
-    task: 'three'
-  },
-  {
-    task: 'four'
-  },
 
-]
 
 
 export default function App() {
@@ -35,6 +21,11 @@ export default function App() {
 
     console.log(taskArray)
 
+  }
+  const completeTask = (id) =>{
+    let itemsCopy = [...taskArray]
+    itemsCopy.splice(id,1)
+    setTaskArray(itemsCopy)
   }
 
   return (
@@ -54,7 +45,13 @@ export default function App() {
 
           </KeyboardAvoidingView>
 
-          {taskArray.map((res) => <Task message={res} />)}
+          {taskArray.map((res,id) => {
+            return(
+              <TouchableOpacity onPress={()=>completeTask(id)}>
+                <Task message={res} />
+              </TouchableOpacity>
+            )
+          })}
 
          
 
